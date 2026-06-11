@@ -29,6 +29,10 @@ public class ConcertService {
         return concertRepository.findById(id);
     }
 
+    public List<Concert> getUpcomingConcerts() {
+        return concertRepository.findByDateAfterOrderByDateAsc(LocalDate.now());
+    }
+
     public Concert createConcert(Concert concert) {
         return concertRepository.save(concert);
     }
