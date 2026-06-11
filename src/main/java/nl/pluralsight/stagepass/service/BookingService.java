@@ -49,7 +49,7 @@ public class BookingService {
         concert.setAvailableSeats(concert.getAvailableSeats() - requestedTickets);
 
         // Compute total price
-        booking.setTotalPrice(BigDecimal.ZERO);
+        booking.setTotalPrice(concert.getTicketPrice().multiply(BigDecimal.valueOf(booking.getNumberOfTickets())));
 
         // Set booking date and concert reference
         booking.setBookingDate(LocalDate.now());
