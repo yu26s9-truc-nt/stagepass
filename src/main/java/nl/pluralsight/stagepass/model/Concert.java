@@ -1,6 +1,7 @@
 package nl.pluralsight.stagepass.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,8 +13,11 @@ public class Concert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String title;
 
+    @NotBlank
+    @FutureOrPresent
     private LocalDate date;
 
     @ManyToOne
@@ -24,10 +28,13 @@ public class Concert {
     @JoinColumn(name = "venue_id")
     private Venue venue;
 
+    @Positive
     private int totalSeats;
 
     private int availableSeats;
 
+    @NotNull
+    @DecimalMin("0.01")
     private BigDecimal ticketPrice;
 
     public Concert() {}
