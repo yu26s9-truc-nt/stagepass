@@ -21,6 +21,10 @@ public class ConcertService {
         return concertRepository.findAll();
     }
 
+    public List<Concert> getConcertsByArtist(Long artistId) {
+        return concertRepository.findByArtistId(artistId);
+    }
+
     public Optional<Concert> getConcertById(Long id) {
         return concertRepository.findById(id);
     }
