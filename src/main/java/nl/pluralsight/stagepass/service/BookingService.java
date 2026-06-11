@@ -43,7 +43,7 @@ public class BookingService {
 
         int requestedTickets = booking.getNumberOfTickets();
         if (concert.getAvailableSeats() < requestedTickets) {
-            throw new IllegalArgumentException("Not enough available seats for this concert. Available: "
+            throw new InsufficientSeatsException("Not enough available seats for this concert. Available: "
                     + concert.getAvailableSeats());
         }
         concert.setAvailableSeats(concert.getAvailableSeats() - requestedTickets);
