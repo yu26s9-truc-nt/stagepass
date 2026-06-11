@@ -1,5 +1,6 @@
 package nl.pluralsight.stagepass.service;
 
+import nl.pluralsight.stagepass.dto.ConcertSummary;
 import nl.pluralsight.stagepass.model.Concert;
 import nl.pluralsight.stagepass.repository.ConcertRepository;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,10 @@ public class ConcertService {
 
     public List<Concert> getUpcomingConcerts() {
         return concertRepository.findByDateAfterOrderByDateAsc(LocalDate.now());
+    }
+
+    public Optional<ConcertSummary> getConcertSummaryById(Long id) {
+        return concertRepository.getSummary(id);
     }
 
     public Concert createConcert(Concert concert) {
