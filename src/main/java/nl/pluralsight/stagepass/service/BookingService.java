@@ -59,11 +59,21 @@ public class BookingService {
     }
 
     public boolean cancelBooking(Long id) {
-        if (bookingRepository.existsById(id)) {
-            bookingRepository.deleteById(id);
-            return true;
+        Optional<Booking> bookingOpt = bookingRepository.findById(id);
+        if (bookingOpt.isEmpty()) {
+            return false;
         }
-        return false;
+
+        Booking booking = bookingOpt.get();
+        Concert concert = booking.getConcert();
+        if (concert == null) {
+            throw new RuntimeException("Concert relation not found for this booking");
+        }
+
+        concert.setAvailableSeats(Math.min(concert.getAvailableSeats() + booking.getNumberOfTickets(), concert.getTotalSeats()));
+
+        bookingRepository.deleteById(id);
+        return true;
     }
 
 }
